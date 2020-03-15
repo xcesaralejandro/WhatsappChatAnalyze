@@ -5,7 +5,6 @@ class LineIteration():
 
     def get_last_user_message_position(self):
         return self.__last_user_message_position
-        
+
     def mark_as_user_message(self):
         self.last_user_message_position = self.current
-    
