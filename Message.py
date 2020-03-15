@@ -12,18 +12,26 @@ class Message(MessageSummary):
         self.__information = MessageSummary()
         self.__update_information()
     
+    def __str__(self):
+        return str(self.get())
+
     def get(self, field = None):
         values = {
             "remitter" : self.__remitter,
             "created_at" : self.__created_at,
             "text" : self.__text,
-            "information" : self.__information,
+            "information" : self.__information.get(),
             "category" : self.__category()
         }
         if field:
             values = values[field]
         return values
     
+    def add_text(self, text):
+        text = self.__clean_text_message(text)
+        self.__text = "{} {}".format(self.__text, text)
+        self.__update_information()
+        
     def __category(self):
         category = None
         if self.__has_remitter():
@@ -89,7 +97,7 @@ class Message(MessageSummary):
         elif self.__category() == constant.SYSTEM_NOTIFICATION_MESSAGE:
             text = self.__extract_text(constant.SYSTEM_NOTIFICATION_MESSAGE)
         elif self.__category() == constant.LINE_PREVIOUS_MESSAGE:
-            text = self.__raw_line
+            text = self.__clean_text_message(self.__raw_line)
         return text
 
     def __extract_text(self, category):
@@ -102,6 +110,11 @@ class Message(MessageSummary):
         match = regex.search(expression, self.__raw_line)
         if match: 
             text = match.string[match.end() : len(match.string)]
+            text = self.__clean_text_message(text)
+        return text
+    
+    def __clean_text_message(self, text):
+        text = text.replace("\n","")
         return text
 
     def __update_information(self):
