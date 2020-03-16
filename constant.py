@@ -2,5 +2,5 @@ USER_MESSAGE = 1
 LINE_PREVIOUS_MESSAGE = 2
 SYSTEM_NOTIFICATION_MESSAGE = 3
 FIRST_ELEMENT_AFTER_SPLIT_USER_MESSAGE = 3
-USER_MESSAGE_REGEX = "\d{2}-\d{2}-\d{2} \d{2}:\d{2} -.{1,}: "
-CREATION_DATE_REGEX = "\d{2}-\d{2}-\d{2} \d{2}:\d{2} - "
+USER_MESSAGE_REGEX = "\d{2}-\d{2}-\d{2} \d{2}:\d{2} -.{1,}?: "
+CREATION_DATE_REGEX = "\d{2}-\d{2}-\d{2} \d{2}:\d{2} ?- "

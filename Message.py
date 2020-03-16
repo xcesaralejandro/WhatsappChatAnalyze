@@ -50,7 +50,8 @@ class Message(MessageSummary):
         return self.__created_at
 
     def __clear_raw_line(self):
-        self.__raw_line = self.__raw_line.replace("<Multimedia omitido>", "")
+        pass
+        # self.__raw_line = self.__raw_line.replace("<Multimedia omitido>", "")
 
     def __find_remitter(self):
         match = regex.search(constant.USER_MESSAGE_REGEX, self.__raw_line)
