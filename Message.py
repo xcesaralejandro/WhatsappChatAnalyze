@@ -1,7 +1,7 @@
 import re as regex 
 import constant
 from MessageSummary import *
-
+from datetime import datetime
 class Message(MessageSummary):
     def __init__(self, line):
         self.__raw_line = line
@@ -50,8 +50,7 @@ class Message(MessageSummary):
         return self.__created_at
 
     def __clear_raw_line(self):
-        pass
-        # self.__raw_line = self.__raw_line.replace("<Multimedia omitido>", "")
+        self.__raw_line = self.__raw_line.replace("<Multimedia omitido>", "")
 
     def __find_remitter(self):
         match = regex.search(constant.USER_MESSAGE_REGEX, self.__raw_line)
@@ -82,8 +81,13 @@ class Message(MessageSummary):
         if match: 
             match = match.string[match.start() : match.end()]
             creation_date = self.__extract_date(match)
+        creation_date = self.__format_creation_date(creation_date)
         return creation_date
     
+    def __format_creation_date(self, date):
+        date = datetime.strptime(date,"%d-%m-%y %H:%M")
+        return date
+
     def __extract_date(self, text):
         date = None
         splited = text.split(" - ")

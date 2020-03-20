@@ -1,9 +1,10 @@
 from io import open
 from Message import * 
+from Participant import *
 import constant
 
 class WhatsappChat ():
-    def __init__(self, filepath, encoding):
+    def __init__(self, filepath, encoding="utf8"):
         self.__filepath = filepath
         self.__encoding = encoding
         self.__messages = []
@@ -18,11 +19,17 @@ class WhatsappChat ():
             "filepath" : self.__filepath,
             "encoding" : self.__encoding,
             "messages" : self.__messages,
-            "participants" : self.__participants,
+            "participants" : self.__get_participants(),
         }
         if field:
             values = values[field]
         return values
+
+    def __get_participants(self):
+        all = {}
+        for participant in self.__participants:
+            all[participant] = Participant(participant)
+        return all
 
     def __process_file(self):
         messages = []
