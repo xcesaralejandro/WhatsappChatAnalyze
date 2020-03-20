@@ -5,7 +5,6 @@ from datetime import datetime
 class Message(MessageSummary):
     def __init__(self, line):
         self.__raw_line = line
-        self.__clear_raw_line()
         self.__remitter = self.__find_remitter()
         self.__created_at = self.__find_creation_date()
         self.__text = self.__find_text()
@@ -21,12 +20,21 @@ class Message(MessageSummary):
             "created_at" : self.__created_at,
             "text" : self.__text,
             "information" : self.__information.get(),
-            "category" : self.__category()
+            "category" : self.__category(),
+            "type" : self.__message_type(),
         }
         if field:
             values = values[field]
         return values
     
+    def __message_type(self):
+        message_type = None
+        if self.__text == '<Multimedia omitido>':
+            message_type = constant.MULTIMEDIA_MESSAGE
+        else:
+            message_type = constant.TEXT_MESSAGE
+        return message_type
+
     def add_text(self, text):
         text = self.__clean_text_message(text)
         self.__text = "{} {}".format(self.__text, text)
@@ -48,9 +56,6 @@ class Message(MessageSummary):
     
     def __has_creation_date(self):
         return self.__created_at
-
-    def __clear_raw_line(self):
-        self.__raw_line = self.__raw_line.replace("<Multimedia omitido>", "")
 
     def __find_remitter(self):
         match = regex.search(constant.USER_MESSAGE_REGEX, self.__raw_line)
