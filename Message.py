@@ -86,7 +86,7 @@ class Message(MessageSummary):
         if match: 
             match = match.string[match.start() : match.end()]
             creation_date = self.__extract_date(match)
-        creation_date = self.__format_creation_date(creation_date)
+            creation_date = self.__format_creation_date(creation_date)
         return creation_date
     
     def __format_creation_date(self, date):
