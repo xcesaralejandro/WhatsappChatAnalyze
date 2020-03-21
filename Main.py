@@ -14,5 +14,7 @@ for message in messages:
         else:
             participant.add_last_recipient_message(message)
 
-participants['César Alejandro M'].report()
+for name in participants.keys():
+        participant = participants[name]
+        participant.report()
 

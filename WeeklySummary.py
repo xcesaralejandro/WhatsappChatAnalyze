@@ -59,5 +59,5 @@ class WeeklySummary:
                 counter.count_message_multimedia(time_block.get('message_multimedia'))
                 counter.count__message_words(time_block.get('message_words'))
                 counter.add__response_times(time_block.get('response_times'))
-        print(counter)
-        return "Oks"
+        summary = counter.summary()
+        return summary
