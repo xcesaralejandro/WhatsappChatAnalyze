@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import pprint
 import constant 
+from Counter import *
 
 class WeeklySummary:
     def __init__(self):
@@ -25,9 +26,9 @@ class WeeklySummary:
     def __generate_hours(self):
         hours = {}
         for hour in range(0,24):
-            hours[hour] = {"count_messages" : 0 , "count_multimedia" : 0, "count_message_words" : 0, "response_times" : [] }
+            hours[hour] = Counter()
         return hours
-
+    
     def add(self, message, response_time = None):
         created = message['created_at']
         day = self.__extract_from(created, "%a")
@@ -36,14 +37,27 @@ class WeeklySummary:
 
     def __update_time_block(self, day, hour, message, response_time):
         time_block = self.__week[day]['hours'][int(hour)]
-        time_block['count_messages'] += 1
+        time_block.count_message()
         if message.get("type") == constant.MULTIMEDIA_MESSAGE:
-            time_block["count_multimedia"] += 1
+            time_block.count_message_multimedia()
         else:
-            time_block['count_message_words'] += message['information']['count_words']
+            time_block.count__message_words(message['information']['count_words'])
         if response_time or response_time == 0 :
-            time_block['response_times'].append(response_time)
+            time_block.add__response_time(response_time)
 
     def __extract_from(self, date, extract):
         extracted = datetime.strftime(date, extract)
         return extracted
+    
+    def general_summary(self):
+        counter = Counter()
+        for name_day in self.__week.keys():
+            day = self.__week[name_day]
+            for hour in day['hours'].keys():
+                time_block = day['hours'][hour]
+                counter.count_message(time_block.get('messages'))
+                counter.count_message_multimedia(time_block.get('message_multimedia'))
+                counter.count__message_words(time_block.get('message_words'))
+                counter.add__response_times(time_block.get('response_times'))
+        print(counter)
+        return "Oks"

@@ -7,12 +7,12 @@ class Participant(WeeklySummary):
         self.__weekly_summary = WeeklySummary()
         self.__last_recipient_message = None
 
-    def __str__(self):
-        values = {
-            "name" : self.__name,
-            "weekly_summary" : self.__weekly_summary
+    def report(self):
+        print("REPORTE DE :", self.__name)
+        reports = {
+            "general_summary" : self.__weekly_summary.general_summary()
         }
-        return str(values)
+        return reports
 
     def is_owner(self, message):
         owner = self.__name == message['remitter']

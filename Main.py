@@ -1,4 +1,5 @@
 from WhatsappChat import * 
+import pprint
 
 wchat = WhatsappChat("./conversations/alex.txt")
 messages = wchat.get("messages")
@@ -12,4 +13,6 @@ for message in messages:
             participant.add_own_message(message)
         else:
             participant.add_last_recipient_message(message)
+
+participants['César Alejandro M'].report()
 
