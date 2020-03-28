@@ -1,7 +1,10 @@
 from WhatsappChat import * 
 import pprint
+import io
 
-wchat = WhatsappChat("./conversations/alex.txt")
+filename = input("Nombre del fichero:")
+
+wchat = WhatsappChat("./conversations/{}.txt".format(filename))
 messages = wchat.get("messages")
 participants = wchat.get("participants")
 
