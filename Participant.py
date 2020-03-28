@@ -7,7 +7,7 @@ class Participant(WeeklySummary):
         self.__weekly_summary = WeeklySummary()
         self.__last_recipient_message = None
 
-    def report(self):
+    def reports(self):
         print("\n\n\n\n", self.__name)
         print("----------------------------------------------------")
         reports = {

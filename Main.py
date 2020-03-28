@@ -16,5 +16,5 @@ for message in messages:
 
 for name in participants.keys():
         participant = participants[name]
-        participant.report()
+        participant.reports()
 

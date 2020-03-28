@@ -42,19 +42,18 @@ class Counter:
         self.__response_times.append(value)
     
     def summary(self):
-        print("\n\nTotal de mensajes enviados",self.__messages)
-        print("\nPromedio de palabras por mensaje",self.__average_words_per_message())
-        print("\nTiempo promedio de respuesta (Minutos)",self.__average_from_list(self.__response_times))
-        print("\nTotal de palabras escritas en la conversación",self.__message_words)
-        print("\nTotal de mensajes multimedia enviados(stickers, adjuntos)",self.__message_multimedia)
+        print("\n\nMensajes enviados =>",self.__messages)
+        print("\nPromedio de palabras por mensaje =>",self.__average_words_per_message())
+        print("\nTiempo promedio de respuesta (Minutos) =>",self.__average_from_list(self.__response_times))
+        print("\nTotal de palabras escritas =>",self.__message_words)
+        print("\nMensajes multimedia enviados (stickers, adjuntos) =>",self.__message_multimedia)
         summary = { 
-            "Total de mensajes enviados" : self.__messages,
-            "Total de mensajes multimedia enviados(stickers, adjuntos)" : self.__message_multimedia,
-            "Total de palabras escritas en la conversación" : self.__message_words,
+            "Mensajes enviados" : self.__messages,
+            "Mensajes multimedia enviados(stickers, adjuntos)" : self.__message_multimedia,
+            "Total de palabras escritas" : self.__message_words,
             "Tiempo promedio de respuesta (Minutos)" : self.__average_from_list(self.__response_times),
             "Promedio de palabras por mensaje" : self.__average_words_per_message(),
         }
-        # pprint.pprint(summary)
         return summary
 
     def __average_words_per_message(self):
